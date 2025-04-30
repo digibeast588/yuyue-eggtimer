@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -44,6 +45,9 @@
       color: #333;
       white-space: pre-line;
     }
+    .checkbox {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -71,6 +75,53 @@
   <br>
   <input type="number" id="percent" placeholder="输入当前完成百分比">
   <br>
+  <style>
+  .pretty-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    justify-content: center;
+  }
+
+  .pretty-checkbox input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ff69b4;
+    border-radius: 4px;
+    background: white;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .pretty-checkbox input[type="checkbox"]:checked {
+    background-color: #ff69b4;
+  }
+
+  .pretty-checkbox input[type="checkbox"]::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    display: none;
+  }
+
+  .pretty-checkbox input[type="checkbox"]:checked::after {
+    display: block;
+  }
+</style>
+<div class="checkbox pretty-checkbox">
+    <label style="display: inline-flex; align-items: center; gap: 5px;">
+      <input type="checkbox" id="boost15">
+      <span>🎉 活动敷蛋加速（×1.5）</span>
+    </label>
+  </div>
+  <br>
   <button onclick="calculate()">🎯 计算</button>
   <div class="result" id="result"></div>
 
@@ -91,6 +142,7 @@
       const percent = parseFloat(document.getElementById('percent').value);
       const vipFactor = parseFloat(document.getElementById('vipLevel').value);
       const carryFactor = document.getElementById('carryMode') ? parseFloat(document.getElementById('carryMode').value) : 1.0;
+      const boost = document.getElementById('boost15').checked;
       const result = document.getElementById('result');
       if (isNaN(cycle) || isNaN(percent)) {
         result.textContent = "请输入正确的数值！";
@@ -102,11 +154,19 @@
       } else {
         baseCycle = cycle / (vipFactor * carryFactor);
       }
+
+      // 敷蛋加速 ×1.5
+      if (boost) {
+        baseCycle /= 1.5;
+      }
+
       const remaining = (100 - percent) / 100;
       const remainingHours = baseCycle * remaining;
       const finishTime = new Date(Date.now() + remainingHours * 3600 * 1000);
       const finishStr = finishTime.toLocaleString();
-      result.textContent = `剩余时间：${remainingHours.toFixed(2)} 小时\n完成时间：${finishStr}`;
+      const h = Math.floor(remainingHours);
+const m = Math.floor((remainingHours - h) * 60);
+result.textContent = `剩余时间：${remainingHours.toFixed(2)} 小时（约 ${h} 小时 ${m} 分钟）\n完成时间：${finishStr}`;
     }
 
     toggleCarry();
