@@ -73,10 +73,11 @@
   </div><br>
   <input type="number" id="cycle" placeholder="输入孵化周期 (小时)"><br>
   <input type="number" id="percent" placeholder="输入当前完成百分比"><br>
-<div style="display: inline-flex; align-items: center; gap: 4px; margin-top: -4px;">
-  <input type="checkbox" id="boost15" style="transform: scale(1.1); margin: 0;">
-  <label for="boost15" style="white-space: nowrap; font-size: 15px; margin: 0;">🎉 活动敷蛋加速（×1.2）</label>
-</div>
+<label style="display: inline-block; vertical-align: middle; font-size: 15px;">
+  <input type="checkbox" id="boost15" style="vertical-align: middle; margin-right: 4px; transform: scale(1.1);">
+  🎉 活动敷蛋加速（×1.2）
+</label>
+
   <button onclick="calculate()">🎯 计算</button>
   <div class="result" id="result"></div>
   <script>
