@@ -132,7 +132,7 @@
   <div class="checkbox pretty-checkbox">
     <label style="display: inline-flex; align-items: center; gap: 5px;">
       <input type="checkbox" id="boost15">
-      <span>🎉 活动敷蛋加速（×1.2）</span>
+      <span>🎉 活动敷蛋加速（×1.5）</span>
     </label>
   </div>
   <br>
@@ -157,7 +157,7 @@
         return;
       }
       let baseCycle = (method === 'eggHouse') ? (cycle / vipFactor) : (cycle / (vipFactor * carryFactor));
-      if (boost) baseCycle /= 1.2;
+      if (boost) baseCycle /= 1.5;
       const remaining = (100 - percent) / 100;
       const remainingHours = baseCycle * remaining;
       const finishTime = new Date(Date.now() + remainingHours * 3600 * 1000);
